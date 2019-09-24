@@ -14,6 +14,8 @@ $ ./gradlew graalNativeImage
 
 ## Running
 
+The compiled distribution archive of the application is located under `build/distributions/`. 
+The binary image is located in the `build/` directory.
 For local testing, there are 4 Gradle tasks available.
 ```
 $ ./gradlew recursiveFibonacci
@@ -22,6 +24,4 @@ $ ./gradlew matrixFibonacci
 $ ./gradlew doublingFibonacci
 ```
 
-The compiled distribution of the application is located under `build/distributions/`. 
-The binary image is located in the `build/` directory.
 
