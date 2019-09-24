@@ -64,17 +64,17 @@ task recursiveFibonacci(description: 'Run recursive Fibonacci', dependsOn: 'clas
 task dynamicFibonacci(description: 'Run dynamic Fibonacci', dependsOn: 'classes', type: JavaExec) {
     main = 'hands.on.fibonacci.FibonacciOnGraal'
     classpath = sourceSets.main.runtimeClasspath
-    args = ['-a', 'DYNAMIC', '123']
+    args = ['-a', 'DYNAMIC', '42']
 }
 
 task matrixFibonacci(description: 'Run matrix Fibonacci', dependsOn: 'classes', type: JavaExec) {
     main = 'hands.on.fibonacci.FibonacciOnGraal'
     classpath = sourceSets.main.runtimeClasspath
-    args = ['-a', 'MATRIX', '123']
+    args = ['-a', 'MATRIX', '42']
 }
 
 task doublingFibonacci(description: 'Run doubling Fibonacci', dependsOn: 'classes', type: JavaExec) {
     main = 'hands.on.fibonacci.FibonacciOnGraal'
     classpath = sourceSets.main.runtimeClasspath
-    args = ['-a', 'DOUBLING', '123']
+    args = ['-a', 'DOUBLING', '42']
 }
