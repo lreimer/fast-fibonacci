@@ -54,3 +54,27 @@ task graalNativeImage(description: 'Generate native image with GraalVM', depends
             'hands.on.fibonacci.FibonacciOnGraal'
     ]
 }
+
+task recursiveFibonacci(description: 'Run recursive Fibonacci', dependsOn: 'classes', type: JavaExec) {
+    main = 'hands.on.fibonacci.FibonacciOnGraal'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['-a', 'RECURSIVE', '42']
+}
+
+task dynamicFibonacci(description: 'Run dynamic Fibonacci', dependsOn: 'classes', type: JavaExec) {
+    main = 'hands.on.fibonacci.FibonacciOnGraal'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['-a', 'DYNAMIC', '123']
+}
+
+task matrixFibonacci(description: 'Run matrix Fibonacci', dependsOn: 'classes', type: JavaExec) {
+    main = 'hands.on.fibonacci.FibonacciOnGraal'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['-a', 'MATRIX', '123']
+}
+
+task doublingFibonacci(description: 'Run doubling Fibonacci', dependsOn: 'classes', type: JavaExec) {
+    main = 'hands.on.fibonacci.FibonacciOnGraal'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['-a', 'DOUBLING', '123']
+}

@@ -8,11 +8,21 @@ public enum Algorithm {
         public BigInteger calculate(int n) {
             return recursiveFibonacci(n);
         }
+
+        @Override
+        public String toString() {
+            return "Textbook recursive (extremely slow)";
+        }
     },
     DYNAMIC {
         @Override
         public BigInteger calculate(int n) {
             return dynamicFibonacci(n);
+        }
+
+        @Override
+        public String toString() {
+            return "Dynamic programming";
         }
     },
     MATRIX {
@@ -20,11 +30,21 @@ public enum Algorithm {
         public BigInteger calculate(int n) {
             return fastFibonacciMatrix(n);
         }
+
+        @Override
+        public String toString() {
+            return "Matrix exponentiation";
+        }
     },
     DOUBLING {
         @Override
         public BigInteger calculate(int n) {
             return fastFibonacciDoubling(n);
+        }
+
+        @Override
+        public String toString() {
+            return "Fast doubling";
         }
     };
 

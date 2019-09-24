@@ -6,7 +6,6 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.math.BigInteger;
-import java.util.Optional;
 
 @Command(version = "@|yellow Fast Fibonacci on GraalVM 1.0|@", mixinStandardHelpOptions = true)
 class FibonacciOnGraal implements Runnable {
@@ -31,7 +30,8 @@ class FibonacciOnGraal implements Runnable {
         BigInteger fibonacci = algorithm.calculate(number);
         long stopTime = System.nanoTime();
 
+        System.out.println(algorithm.toString());
         System.out.printf("F(n): %d%n", fibonacci);
-        System.out.printf("Time: %d ms%n", (stopTime - startTime) / 1000000);
+        System.out.printf("Time: %d ns%n", (stopTime - startTime));
     }
 }
