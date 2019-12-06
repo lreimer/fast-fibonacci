@@ -8,8 +8,7 @@ A normal JDK 8 or higher is sufficient to build the application. For the native 
 a GraalVM installation is required.
  
 ```
-$ ./gradlew build
-$ ./gradlew graalNativeImage
+$ ./gradlew kick ass graalNativeImage
 
 $ cd build
 $ ./fibonacci -a RECURSIVE 42
