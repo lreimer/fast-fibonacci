@@ -36,6 +36,8 @@ task copyRuntimeLibs(type: Copy) {
 
 assemble.finalizedBy copyRuntimeLibs
 
+task kick(dependsOn: 'clean') {}
+
 task reflectionConfigGenerator(description: 'Generate reflection config', dependsOn: 'assemble', type: JavaExec) {
     main = 'picocli.codegen.aot.graalvm.ReflectionConfigGenerator'
     classpath = sourceSets.main.runtimeClasspath
@@ -49,31 +51,32 @@ task graalNativeImage(description: 'Generate native image with GraalVM', depends
             '-cp', 'libs/picocli-3.9.6.jar:libs/picocli-codegen-3.9.6.jar:libs/jline-2.14.6.jar:libs/fast-fibonacci.jar',
             '-H:ReflectionConfigurationFiles=reflect.json',
             '-H:+ReportUnsupportedElementsAtRuntime',
-            '--delay-class-initialization-to-runtime=org.fusesource.jansi.WindowsAnsiOutputStream',
+            '--initialize-at-run-time=org.fusesource.jansi.WindowsAnsiOutputStream',
             '--no-server',
-            'hands.on.fibonacci.FibonacciOnGraal'
+            'hands.on.fibonacci.FibonacciOnGraal',
+            'fibonacci'
     ]
 }
 
-task recursiveFibonacci(description: 'Run recursive Fibonacci', dependsOn: 'classes', type: JavaExec) {
+task recursiveFibonacci42(description: 'Run recursive Fibonacci', dependsOn: 'classes', type: JavaExec) {
     main = 'hands.on.fibonacci.FibonacciOnGraal'
     classpath = sourceSets.main.runtimeClasspath
     args = ['-a', 'RECURSIVE', '42']
 }
 
-task dynamicFibonacci(description: 'Run dynamic Fibonacci', dependsOn: 'classes', type: JavaExec) {
+task dynamicFibonacci42(description: 'Run dynamic Fibonacci', dependsOn: 'classes', type: JavaExec) {
     main = 'hands.on.fibonacci.FibonacciOnGraal'
     classpath = sourceSets.main.runtimeClasspath
     args = ['-a', 'DYNAMIC', '42']
 }
 
-task matrixFibonacci(description: 'Run matrix Fibonacci', dependsOn: 'classes', type: JavaExec) {
+task matrixFibonacci42(description: 'Run matrix Fibonacci', dependsOn: 'classes', type: JavaExec) {
     main = 'hands.on.fibonacci.FibonacciOnGraal'
     classpath = sourceSets.main.runtimeClasspath
     args = ['-a', 'MATRIX', '42']
 }
 
-task doublingFibonacci(description: 'Run doubling Fibonacci', dependsOn: 'classes', type: JavaExec) {
+task doublingFibonacci42(description: 'Run doubling Fibonacci', dependsOn: 'classes', type: JavaExec) {
     main = 'hands.on.fibonacci.FibonacciOnGraal'
     classpath = sourceSets.main.runtimeClasspath
     args = ['-a', 'DOUBLING', '42']
