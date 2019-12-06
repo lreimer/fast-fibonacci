@@ -25,6 +25,17 @@ public enum Algorithm {
             return "Dynamic programming";
         }
     },
+    SQRT5 {
+        @Override
+        public BigInteger calculate(int n) {
+            return BigInteger.valueOf(Algorithm.sqrt5Fibonacci(n));
+        }
+
+        @Override
+        public String toString() {
+            return "Math.sqrt(5)";
+        }
+    },
     MATRIX {
         @Override
         public BigInteger calculate(int n) {
@@ -49,6 +60,12 @@ public enum Algorithm {
     };
 
     public abstract BigInteger calculate(int n);
+
+    private static long sqrt5Fibonacci(int n) {
+        double sqrt5 = Math.sqrt(5);
+        double phi = (1 + sqrt5) / 2;
+        return Math.round((Math.pow(phi, n) / sqrt5));
+    }
 
     private static BigInteger recursiveFibonacci(int n) {
         if (n == 0) {

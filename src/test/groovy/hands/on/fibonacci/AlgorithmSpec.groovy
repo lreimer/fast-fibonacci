@@ -33,6 +33,21 @@ class AlgorithmSpec extends Specification {
         f << [BigInteger.ZERO, BigInteger.ONE, BigInteger.ONE, BigInteger.TWO]
     }
 
+    def "Calculate Sqrt5"() {
+        given:
+        def algorithm = Algorithm.SQRT5
+
+        when:
+        def result = algorithm.calculate(n)
+
+        then:
+        result == f
+
+        where:
+        n << [0, 1, 2, 3]
+        f << [BigInteger.ZERO, BigInteger.ONE, BigInteger.ONE, BigInteger.TWO]
+    }
+
     def "Calculate Matrix"() {
         given:
         def algorithm = Algorithm.MATRIX
