@@ -1,6 +1,8 @@
 package hands.on.fibonacci;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 
 public enum Algorithm {
     RECURSIVE {
@@ -25,15 +27,17 @@ public enum Algorithm {
             return "Dynamic programming";
         }
     },
-    SQRT5 {
+    BINET1 {
+        private final BigDecimal PHI = BigDecimal.valueOf((1 + Math.sqrt(5)) / 2);
+        private final BigDecimal PSI = BigDecimal.valueOf((1 - Math.sqrt(5)) / 2);
+        private final BigDecimal SQRT5 = BigDecimal.valueOf(Math.sqrt(5));
         @Override
         public BigInteger calculate(int n) {
-            return BigInteger.valueOf(Algorithm.sqrt5Fibonacci(n));
+            return PHI.pow(n).subtract(PSI.pow(n)).divide(SQRT5, RoundingMode.HALF_UP).toBigInteger();
         }
-
         @Override
         public String toString() {
-            return "Math.sqrt(5)";
+            return "binet closed formula";
         }
     },
     MATRIX {
@@ -60,12 +64,6 @@ public enum Algorithm {
     };
 
     public abstract BigInteger calculate(int n);
-
-    private static long sqrt5Fibonacci(int n) {
-        double sqrt5 = Math.sqrt(5);
-        double phi = (1 + sqrt5) / 2;
-        return Math.round((Math.pow(phi, n) / sqrt5));
-    }
 
     private static BigInteger recursiveFibonacci(int n) {
         if (n == 0) {

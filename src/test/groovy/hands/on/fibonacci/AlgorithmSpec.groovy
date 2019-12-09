@@ -33,9 +33,9 @@ class AlgorithmSpec extends Specification {
         f << [BigInteger.ZERO, BigInteger.ONE, BigInteger.ONE, BigInteger.TWO]
     }
 
-    def "Calculate Sqrt5"() {
+    def "Calculate BINET1"() {
         given:
-        def algorithm = Algorithm.SQRT5
+        def algorithm = Algorithm.BINET1
 
         when:
         def result = algorithm.calculate(n)
