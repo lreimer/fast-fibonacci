@@ -16,6 +16,17 @@ public enum Algorithm {
             return "Textbook recursive (extremely slow)";
         }
     },
+    CACHED {
+        @Override
+        public BigInteger calculate(int n) {
+            return fibonacciRecursiveCached(new BigInteger[n+1], n);
+        }
+
+        @Override
+        public String toString() {
+            return "Cached recursive";
+        }
+    },
     DYNAMIC {
         @Override
         public BigInteger calculate(int n) {
@@ -31,10 +42,12 @@ public enum Algorithm {
         private final BigDecimal PHI = BigDecimal.valueOf((1 + Math.sqrt(5)) / 2);
         private final BigDecimal PSI = BigDecimal.valueOf((1 - Math.sqrt(5)) / 2);
         private final BigDecimal SQRT5 = BigDecimal.valueOf(Math.sqrt(5));
+
         @Override
         public BigInteger calculate(int n) {
             return PHI.pow(n).subtract(PSI.pow(n)).divide(SQRT5, RoundingMode.HALF_UP).toBigInteger();
         }
+        
         @Override
         public String toString() {
             return "binet closed formula";
@@ -75,6 +88,20 @@ public enum Algorithm {
         }
     }
 
+    private static BigInteger fibonacciRecursiveCached(BigInteger[] cache, int n) {
+        if (n == 0) {
+            return BigInteger.ZERO;
+        } else if (n == 1) {
+            return BigInteger.ONE;
+        }
+
+        if (cache[n] == null) {
+            cache[n] = fibonacciRecursiveCached(cache, n-1).add(fibonacciRecursiveCached(cache, n-2));
+        } 
+
+        return cache[n];
+    }
+
     /*
      * Simple slow method, using dynamic programming.
      * F(n+2) = F(n+1) + F(n).
@@ -82,6 +109,7 @@ public enum Algorithm {
     private static BigInteger dynamicFibonacci(int n) {
         BigInteger a = BigInteger.ZERO;
         BigInteger b = BigInteger.ONE;
+
         for (int i = 0; i < n; i++) {
             BigInteger c = a.add(b);
             a = b;

@@ -64,6 +64,12 @@ task recursiveFibonacci42(description: 'Run recursive Fibonacci', dependsOn: 'cl
     args = ['-a', 'RECURSIVE', '42']
 }
 
+task cachedFibonacci42(description: 'Run recursive cached Fibonacci', dependsOn: 'classes', type: JavaExec) {
+    main = 'hands.on.fibonacci.FibonacciOnGraal'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['-a', 'CACHED', '42']
+}
+
 task dynamicFibonacci42(description: 'Run dynamic Fibonacci', dependsOn: 'classes', type: JavaExec) {
     main = 'hands.on.fibonacci.FibonacciOnGraal'
     classpath = sourceSets.main.runtimeClasspath

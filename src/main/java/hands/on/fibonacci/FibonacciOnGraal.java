@@ -13,7 +13,7 @@ class FibonacciOnGraal implements Runnable {
     @Parameters(arity = "0..1", description = "The Fibonacci number to calculate")
     private int number = 0;
 
-    @Option(names = {"-a", "--algorithm"}, description = "RECURSIVE (extremely slow), DYNAMIC (slow), MATRIX (fast), DOUBLING (faster)")
+    @Option(names = {"-a", "--algorithm"}, description = "RECURSIVE (extremely slow), CACHED(slow), DYNAMIC (slow), BINET1 (fast), MATRIX (fast), DOUBLING (faster)")
     private Algorithm algorithm = Algorithm.RECURSIVE;
 
     public static void main(String[] args) {
