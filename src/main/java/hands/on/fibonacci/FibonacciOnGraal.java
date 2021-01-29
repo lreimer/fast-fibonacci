@@ -17,7 +17,8 @@ class FibonacciOnGraal implements Runnable {
     private Algorithm algorithm = Algorithm.RECURSIVE;
 
     public static void main(String[] args) {
-        CommandLine.run(new FibonacciOnGraal(), args);
+        int exitCode = new CommandLine(new FibonacciOnGraal()).execute(args);
+        System.exit(exitCode);
     }
 
     @Override
