@@ -12,9 +12,13 @@ sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
 dependencies {
-    implementation 'info.picocli:picocli:3.9.6'
-    runtime 'info.picocli:picocli-codegen:3.9.6'
-    runtime 'jline:jline:2.14.6'
+    implementation 'info.picocli:picocli:4.6.1'
+    implementation 'info.picocli:picocli-jansi-graalvm:1.2.0'
+
+    annotationProcessor 'info.picocli:picocli-codegen:4.6.1'
+
+    runtimeOnly 'info.picocli:picocli-codegen:4.6.1'
+    runtimeOnly 'info.picocli:picocli-shell-jline3:4.6.1'
 
     testImplementation 'org.graalvm:graal-sdk:1.0.0-rc7'
 
@@ -31,26 +35,34 @@ mainClassName = 'hands.on.fibonacci.FibonacciOnGraal'
 
 task copyRuntimeLibs(type: Copy) {
     into "$buildDir/libs"
-    from configurations.runtime
+    from sourceSets.main.runtimeClasspath
+    include "*.jar"
 }
 
 assemble.finalizedBy copyRuntimeLibs
 
 task kick(dependsOn: 'clean') {}
 
+/*
 task reflectionConfigGenerator(description: 'Generate reflection config', dependsOn: 'assemble', type: JavaExec) {
     main = 'picocli.codegen.aot.graalvm.ReflectionConfigGenerator'
     classpath = sourceSets.main.runtimeClasspath
     args = ['hands.on.fibonacci.FibonacciOnGraal', '--output', 'build/reflect.json']
 }
+*/
 
-task graalNativeImage(description: 'Generate native image with GraalVM', dependsOn: 'reflectionConfigGenerator', type: Exec) {
+String getClasspath() {
+    'libs/' + file("$buildDir/libs").list()?.join(':libs/')
+}
+
+task graalNativeImage(description: 'Generate native image with GraalVM', dependsOn: 'build', type: Exec) {
     workingDir "$buildDir"
     commandLine = [
             'native-image',
-            '-cp', 'libs/picocli-3.9.6.jar:libs/picocli-codegen-3.9.6.jar:libs/jline-2.14.6.jar:libs/fast-fibonacci.jar',
-            '-H:ReflectionConfigurationFiles=reflect.json',
+            '-cp', getClasspath(),
             '-H:+ReportUnsupportedElementsAtRuntime',
+            '-H:+ReportExceptionStackTraces',
+            '-H:+AddAllCharsets',
             '--initialize-at-run-time=org.fusesource.jansi.WindowsAnsiOutputStream',
             '--no-server',
             'hands.on.fibonacci.FibonacciOnGraal',

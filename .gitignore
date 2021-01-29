@@ -6,6 +6,7 @@
 *.iml
 
 .settings/
+.vscode/
 .project
 .classpath
 
