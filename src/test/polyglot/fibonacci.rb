@@ -12,4 +12,15 @@ def fibonacci(n)
     end
 end
 
+def fibonacci_iterative(n)
+    a = 1
+    b = 1
+    for i in 3..n
+        c = a + b
+        a = b
+        b = c
+    end
+    b
+end
+
 puts "#{n}'s fibonacci value is #{fibonacci(n)}"
